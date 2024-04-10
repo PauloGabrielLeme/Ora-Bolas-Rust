@@ -1,6 +1,10 @@
 #![allow(non_snake_case)]
 use std::io::{self, Write};
+use plotters::prelude::*;
 fn main() {
+    let mut lx : Vec<f64> = Vec::new();
+    let mut ly : Vec<f64> = Vec::new();
+  
     let mut x = String::new();
     let mut y = String::new();
 
@@ -15,4 +19,6 @@ fn main() {
     let x:f64 = x.trim().parse().expect("Erro Na Conversão De X");
     let y:f64 = y.trim().parse().expect("Erro Na Conversão De Y");
 
+
+  
 }
