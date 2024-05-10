@@ -1,10 +1,9 @@
 #![allow(non_snake_case)]
 use std::io::{self, Write};
-use plotters::prelude::*;
+mod f;
+use f::*;
+
 fn main() {
-    let mut lx : Vec<f64> = Vec::new();
-    let mut ly : Vec<f64> = Vec::new();
-  
     let mut x = String::new();
     let mut y = String::new();
 
