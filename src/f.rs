@@ -4,7 +4,6 @@ use plotters::prelude::*;
 use plotters::style::RGBColor;
 use std::error::Error;
 
-
 fn ler_arquivo(lista_t: &mut Vec<f64>,lista_x: &mut Vec<f64>,lista_y: &mut Vec<f64>)-> Result<(),std::io::Error>{
     let file = File::open("dados.txt")?;
     let reader = BufReader::new(file);
@@ -402,7 +401,7 @@ pub fn calculo_total(robo_x:&mut f64,robo_y:&mut f64){
     let peso:f64 = 4.6; //N
     let massa:f64 = 0.46; //g
 
-    let distancia_robo_bola = calcular_distancia(1.0, posicao_y, 1.0, 0.5); 
+    let distancia_robo_bola = calcular_distancia(*robo_x, *robo_y, 1.0, posicao_y); 
     let tempo_robo_cheguei:f64 = calcular_tempo(distancia_robo_bola,robo_velocidade);
     let forca:f64 = calcular_forca(massa,robo_aceleracao);
     let forca_com_atrito1:f64=calcular_forca_com_atrito(peso,0.2);
@@ -489,33 +488,21 @@ pub fn calculo_total(robo_x:&mut f64,robo_y:&mut f64){
     distancia_rel(&distancia_relativa,&tempo_velocidade);
 
     let mut tempo_grafico = Vec::new();
-    let limite = (tempo_robo_cheguei * 100.0) as usize;
-
-    for i in 0..limite {
-        let tempo = i as f64 / 100.0;
-        tempo_grafico.push(tempo);
-    }
-
-    // Utilizando um loop 'for' para calcular as posições x para cada tempo em 'tempo_grafico'
     let mut posicoes_x = Vec::new();
-
-    // Iterar sobre cada tempo em 'tempo_grafico'
-    for &tempo in &tempo_grafico {
-        // Calcular a posição x para o tempo atual
-        let posicao_x = calcular_posicao_x(tempo);
-        // Adicionar a posição x calculada ao vetor 'posicoes_x'
-        posicoes_x.push(posicao_x);
-    }    
-
-    // Utilizando um loop 'for' para calcular as posições x para cada tempo em 'tempo_grafico'
     let mut posicoes_y = Vec::new();
 
-    // Iterar sobre cada tempo em 'tempo_grafico'
-    for &tempo in &tempo_grafico {
-        // Calcular a posição x para o tempo atual
-        let posicao_y = calcular_posicao_y(tempo);
-        // Adicionar a posição x calculada ao vetor 'posicoes_x'
-        posicoes_y.push(posicao_y);
+    // Preencher o vetor tempo_grafico com valores de tempo
+    for i in 0..= (tempo_robo_cheguei * 100.0 ) as usize {
+        let t = i as f64 / 100.0;
+        tempo_grafico.push(t);
+    }
+
+    // Calcular e preencher os vetores posicoes_x e posicoes_y com as posições correspondentes a cada tempo
+    for &t in &tempo_grafico {
+        let pos_x = calcular_posicao_x(t); // Supondo que calcular_posicao_x seja uma função definida em outro lugar
+        let pos_y = calcular_posicao_y(t); // Supondo que calcular_posicao_y seja uma função definida em outro lugar
+        posicoes_x.push(pos_x);
+        posicoes_y.push(pos_y);
     }
 
     posicao_bola_relacao_tempo(&posicoes_x, &posicoes_y, &tempo_grafico);
