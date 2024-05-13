@@ -1,23 +1,22 @@
 #![allow(non_snake_case)]
-use std::io::{self, Write};
+#![allow(unused)]
+use std::io;
 mod f;
 use f::*;
 
-fn main() {
-    let mut x = String::new();
-    let mut y = String::new();
+fn main(){
+    let mut robo_x = String::new();
+    let mut robo_y = String::new();
 
-    print!("Digite A Posicao X: ");
-    io::stdout().flush().unwrap();
-    io::stdin().read_line(&mut x).expect("Erro Na Entrada De X");
-    print!("Digite A Posicao Y: ");
-    io::stdout().flush().unwrap();
-    io::stdin().read_line(&mut y).expect("Erro Na Entrada De Y");
+    println!("Insira A Posição X :");
+    io::stdin().read_line(&mut robo_x);
+    println!("Insira A Posição Y :");
+    io::stdin().read_line(&mut robo_y);
 
-    //Converte as strings x e y para o formato de double, ou duplo ponto flutuante
-    let x:f64 = x.trim().parse().expect("Erro Na Conversão De X");
-    let y:f64 = y.trim().parse().expect("Erro Na Conversão De Y");
+    let mut robo_x= robo_x.trim().parse::<f64>().expect("Erro Na Convercao de X");
+    let mut robo_y= robo_y.trim().parse::<f64>().expect("Erro Na Convercao de Y");
 
+    calculo_total(&mut robo_x,&mut robo_y);    
+    
 
-  
 }
